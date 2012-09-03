@@ -150,15 +150,11 @@ typedef enum {
 		? velocity > 0.0f
 		: xOrigin > (kGHRevealSidebarWidth / 2);
 		
-		[self toggleSidebar:show duration:kGHRevealSidebarDefaultAnimationDuration];
+		[self toggleSideView:show animated:YES completion:^(BOOL finshed){}];
 	}
 }
 
-- (void)toggleSidebar:(BOOL)show duration:(NSTimeInterval)duration {
-	[self toggleSidebar:show duration:duration completion:^(BOOL finshed){}];
-}
-
-- (void)toggleSidebar:(BOOL)show duration:(NSTimeInterval)duration completion:(void (^)(BOOL finsihed))completion {
+- (void)toggleSideView:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finsihed))completion {
 	void (^animations)(void) = ^{
 		if (show) {
 			_contentView.frame = CGRectOffset(_contentView.bounds, kGHRevealSidebarWidth, 0.0f);
@@ -172,8 +168,8 @@ typedef enum {
 		[self callDidChangeDelegate];
 	};
 	UIViewAnimationOptions animationOption = (show) ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseInOut;
-	if (duration > 0.0) {
-		[UIView animateWithDuration:duration
+	if (animated) {
+		[UIView animateWithDuration:kGHRevealSidebarDefaultAnimationDuration
 							  delay:0
 							options:animationOption
 						 animations:animations
@@ -185,17 +181,22 @@ typedef enum {
 }
 
 #pragma mark Public Methods
-- (void)toggleSideView
+- (void)toggleSideView:(BOOL)animated;
 {
-	
+	[self callWillChangeDelegate];
+	[self toggleSideView:!_sideViewShowing animated:animated completion:^(BOOL finshed){}];
 }
-- (void)openSideView
+
+- (void)openSideView:(BOOL)animated;
 {
-	
+	[self callWillChangeDelegate];
+	[self toggleSideView:YES animated:animated completion:^(BOOL finshed){}];
 }
-- (void)closeSideView
+
+- (void)closeSideView:(BOOL)animated;
 {
-	
+	[self callWillChangeDelegate];
+	[self toggleSideView:NO animated:animated completion:^(BOOL finshed){}];
 }
 
 #pragma mark Delegate Calls

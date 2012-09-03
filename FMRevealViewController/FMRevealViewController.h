@@ -26,9 +26,9 @@ typedef enum {
 @property (strong, nonatomic) UIViewController *sideViewController;
 @property (strong, nonatomic) UIViewController *contentViewController;
 
-- (void)toggleSideView;
-- (void)openSideView;
-- (void)closeSideView;
+- (void)toggleSideView:(BOOL)animated;
+- (void)openSideView:(BOOL)animated;
+- (void)closeSideView:(BOOL)animated;
 
 @end
 

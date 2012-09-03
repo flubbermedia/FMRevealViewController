@@ -10,4 +10,6 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)toggleSideView:(id)sender;
+
 @end

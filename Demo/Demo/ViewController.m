@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "FMRevealViewController.h"
 
 @interface ViewController ()
 
@@ -14,21 +15,10 @@
 
 @implementation ViewController
 
-- (void)viewDidLoad
+- (void)toggleSideView:(id)sender
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-}
-
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-	return (interfaceOrientation != UIInterfaceOrientationPortraitUpsideDown);
+	FMRevealViewController *revealViewController = (FMRevealViewController *)self.parentViewController;
+	[revealViewController toggleSideView:YES];
 }
 
 @end
