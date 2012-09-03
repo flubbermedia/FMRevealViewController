@@ -20,6 +20,7 @@
 	FMRevealViewController *revealViewController = [[FMRevealViewController alloc] init];
 	revealViewController.contentViewController = [[ViewController alloc] init];
 	revealViewController.sideViewController = [[SideViewController alloc] init];
+	revealViewController.revealSide = RevealSideViewRight;
 	revealViewController.delegate = self;
 	
 	self.window.rootViewController = revealViewController;

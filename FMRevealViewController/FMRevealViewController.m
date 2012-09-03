@@ -125,8 +125,9 @@ typedef enum {
 {
 	CGFloat translation = [panGesture translationInView:self.view].x;
 	CGFloat velocity = [panGesture velocityInView:self.view].x;
-	CGFloat xOffset = (_sideViewShowing) ? kGHRevealSidebarWidth : 0.0f;
-	CGFloat xOrigin = _contentView.bounds.origin.x + xOffset + translation;
+	CGFloat xOffset = (_sideViewShowing) ? _revealSide * kGHRevealSidebarWidth : 0.0f;
+	CGFloat xReference = (_revealSide == RevealSideViewLeft) ? CGRectGetMinX(_contentView.bounds) : CGRectGetMinX(_contentView.bounds);
+	CGFloat xOrigin = xReference + xOffset + translation;
 	
 	if (panGesture.state == UIGestureRecognizerStateBegan)
 	{
@@ -134,8 +135,14 @@ typedef enum {
 	}
 	else if (panGesture.state == UIGestureRecognizerStateChanged)
 	{
-		CGFloat xMin = CGRectGetMinX(self.view.bounds);
+		CGFloat xMin = 0.0f;
 		CGFloat xMax = CGRectGetMaxX(self.view.bounds);
+		
+		if (_revealSide == RevealSideViewRight)
+		{
+			xMin = -CGRectGetMaxX(self.view.bounds);
+			xMax = 0.0f;
+		}
 		
 		CGFloat xDelta = (xOrigin > xMin && xOrigin < xMax)
 		? xOffset + translation
@@ -147,8 +154,8 @@ typedef enum {
 	else if (panGesture.state == UIGestureRecognizerStateEnded)
 	{
 		BOOL show = (fabs(velocity) > kGHRevealSidebarFlickVelocity)
-		? velocity > 0.0f
-		: xOrigin > (kGHRevealSidebarWidth / 2);
+		? _revealSide * velocity > 0.0f
+		: _revealSide * xOrigin > (kGHRevealSidebarWidth / 2);
 		
 		[self toggleSideView:show animated:YES completion:^(BOOL finshed){}];
 	}
@@ -157,7 +164,7 @@ typedef enum {
 - (void)toggleSideView:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finsihed))completion {
 	void (^animations)(void) = ^{
 		if (show) {
-			_contentView.frame = CGRectOffset(_contentView.bounds, kGHRevealSidebarWidth, 0.0f);
+			_contentView.frame = CGRectOffset(_contentView.bounds, _revealSide * kGHRevealSidebarWidth, 0.0f);
 		} else {
 			_contentView.frame = _contentView.bounds;
 		}

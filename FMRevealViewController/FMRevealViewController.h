@@ -9,9 +9,9 @@
 #import <UIKit/UIKit.h>
 
 typedef enum {
-	RevealSideLeft = 0,
-	RevealSideRight
-} RevealSide;
+	RevealSideViewLeft = 1,
+	RevealSideViewRight = -1
+} RevealSideView;
 
 @protocol FMRevealViewControllerDelegate;
 
@@ -23,6 +23,7 @@ typedef enum {
 
 @property (nonatomic, weak) id<FMRevealViewControllerDelegate> delegate;
 @property (nonatomic, readonly, getter = isSideViewShowing) BOOL sideViewShowing;
+@property (nonatomic, assign) RevealSideView revealSide;
 @property (strong, nonatomic) UIViewController *sideViewController;
 @property (strong, nonatomic) UIViewController *contentViewController;
 

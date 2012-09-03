@@ -15,10 +15,16 @@
 
 @implementation ViewController
 
-- (void)toggleSideView:(id)sender
+- (IBAction)toggleSideView:(id)sender
 {
 	FMRevealViewController *revealViewController = (FMRevealViewController *)self.parentViewController;
 	[revealViewController toggleSideView:YES];
+}
+
+- (IBAction)changeRevealSideView:(id)sender
+{
+	FMRevealViewController *revealViewController = (FMRevealViewController *)self.parentViewController;
+	revealViewController.revealSide = (revealViewController.revealSide == RevealSideViewLeft) ? RevealSideViewRight : RevealSideViewLeft;
 }
 
 @end
