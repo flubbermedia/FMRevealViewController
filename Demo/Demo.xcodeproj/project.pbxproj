@@ -15,9 +15,9 @@
 		65E9B49415F4331800419B4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9B49315F4331800419B4B /* AppDelegate.m */; };
 		65E9B49715F4331800419B4B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9B49615F4331800419B4B /* ViewController.m */; };
 		65E9B49A15F4331800419B4B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9B49815F4331800419B4B /* ViewController.xib */; };
-		65E9B4A315F4332900419B4B /* FMRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9B4A215F4332900419B4B /* FMRevealViewController.m */; };
 		65E9B4AB15F4349100419B4B /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9B4A915F4349000419B4B /* SideViewController.m */; };
 		65E9B4AC15F4349100419B4B /* SideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9B4AA15F4349000419B4B /* SideViewController.xib */; };
+		65E9B4B515F438A400419B4B /* FMRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9B4B415F438A400419B4B /* FMRevealViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,11 +34,11 @@
 		65E9B49515F4331800419B4B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		65E9B49615F4331800419B4B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		65E9B49915F4331800419B4B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
-		65E9B4A115F4332900419B4B /* FMRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMRevealViewController.h; sourceTree = "<group>"; };
-		65E9B4A215F4332900419B4B /* FMRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMRevealViewController.m; sourceTree = "<group>"; };
 		65E9B4A815F4349000419B4B /* SideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SideViewController.h; sourceTree = "<group>"; };
 		65E9B4A915F4349000419B4B /* SideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SideViewController.m; sourceTree = "<group>"; };
 		65E9B4AA15F4349000419B4B /* SideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SideViewController.xib; sourceTree = "<group>"; };
+		65E9B4B315F438A400419B4B /* FMRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMRevealViewController.h; sourceTree = "<group>"; };
+		65E9B4B415F438A400419B4B /* FMRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMRevealViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +58,7 @@
 		65E9B47415F4331700419B4B = {
 			isa = PBXGroup;
 			children = (
-				65E9B4A015F4332900419B4B /* FMRevealViewController */,
+				65E9B4B215F438A400419B4B /* FMRevealViewController */,
 				65E9B48915F4331800419B4B /* Demo */,
 				65E9B48215F4331800419B4B /* Frameworks */,
 				65E9B48015F4331800419B4B /* Products */,
@@ -110,11 +110,11 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		65E9B4A015F4332900419B4B /* FMRevealViewController */ = {
+		65E9B4B215F438A400419B4B /* FMRevealViewController */ = {
 			isa = PBXGroup;
 			children = (
-				65E9B4A115F4332900419B4B /* FMRevealViewController.h */,
-				65E9B4A215F4332900419B4B /* FMRevealViewController.m */,
+				65E9B4B315F438A400419B4B /* FMRevealViewController.h */,
+				65E9B4B415F438A400419B4B /* FMRevealViewController.m */,
 			);
 			name = FMRevealViewController;
 			path = ../FMRevealViewController;
@@ -187,8 +187,8 @@
 				65E9B49015F4331800419B4B /* main.m in Sources */,
 				65E9B49415F4331800419B4B /* AppDelegate.m in Sources */,
 				65E9B49715F4331800419B4B /* ViewController.m in Sources */,
-				65E9B4A315F4332900419B4B /* FMRevealViewController.m in Sources */,
 				65E9B4AB15F4349100419B4B /* SideViewController.m in Sources */,
+				65E9B4B515F438A400419B4B /* FMRevealViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,6 +304,7 @@
 				65E9B49F15F4331800419B4B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
