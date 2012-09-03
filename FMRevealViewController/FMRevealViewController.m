@@ -35,6 +35,7 @@ typedef enum {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
 		_sideViewShowing = NO;
+		_revealSide = RevealSideViewLeft;
 		
 		self.view.autoresizingMask = (UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight);
 		
