@@ -49,68 +49,69 @@ typedef enum {
 		_contentView.backgroundColor = [UIColor clearColor];
 		_contentView.layer.masksToBounds = NO;
 		_contentView.layer.shadowColor = [UIColor blackColor].CGColor;
-		_contentView.layer.shadowOffset = CGSizeMake(0.0f, 0.0f);
-		_contentView.layer.shadowOpacity = 1.0f;
-		_contentView.layer.shadowRadius = 2.5f;
+		_contentView.layer.shadowOffset = CGSizeMake(1.0f, 0.0f);
+		_contentView.layer.shadowOpacity = 0.75f;
+		_contentView.layer.shadowRadius = 3.0f;
 		_contentView.layer.shadowPath = [UIBezierPath bezierPathWithRect:_contentView.bounds].CGPath;
 		[self.view addSubview:_contentView];
 		
 		UIPanGestureRecognizer *panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(dragContentView:)];
 		panGesture.cancelsTouchesInView = YES;
+		panGesture.delegate = self;
 		[_contentView addGestureRecognizer:panGesture];
     }
     return self;
 }
 
-- (void)setContentViewController:(UIViewController *)vc {
-	[self updateViewController:vc ofType:ViewControllerTypeContent];
-}
-
-- (void)setSideViewController:(UIViewController *)vc {
-	[self updateViewController:vc ofType:ViewControllerTypeSide];
-}
-
-- (void)updateViewController:(UIViewController *)vc ofType:(ViewControllerType)type
-{
-	__block UIViewController *targetViewController = nil;
-	__block UIView *targetView = nil;
-	if (type == 0)
-	{
-		targetViewController = _contentViewController;
-		targetView = _contentView;
-	}
-	else if (type == 1)
-	{
-		targetViewController = _sideViewController;
-		targetView = _sideView;
-	}
-	else
-	{
-		return;
-	}
-	
-	
-	if (targetViewController == nil) {
-		vc.view.frame = targetView.bounds;
-		targetViewController = vc;
-		[self addChildViewController:targetViewController];
-		[targetView addSubview:targetViewController.view];
-		[targetViewController didMoveToParentViewController:self];
-	} else if (targetViewController != vc) {
-		vc.view.frame = targetView.bounds;
-		[targetViewController willMoveToParentViewController:nil];
-		[self addChildViewController:vc];
+- (void)setSideViewController:(UIViewController *)svc {
+	if (_sideViewController == nil) {
+		svc.view.frame = _sideView.bounds;
+		_sideViewController = svc;
+		[self addChildViewController:_sideViewController];
+		[_sideView addSubview:_sideViewController.view];
+		[_sideViewController didMoveToParentViewController:self];
+	} else if (_sideViewController != svc) {
+		svc.view.frame = _sideView.bounds;
+		[_sideViewController willMoveToParentViewController:nil];
+		[self addChildViewController:svc];
 		self.view.userInteractionEnabled = NO;
-		[self transitionFromViewController:targetViewController
-						  toViewController:vc
+		[self transitionFromViewController:_sideViewController
+						  toViewController:svc
 								  duration:0
 								   options:UIViewAnimationOptionTransitionNone
 								animations:^{}
 								completion:^(BOOL finished){
 									self.view.userInteractionEnabled = YES;
-									[targetViewController removeFromParentViewController];
-									[vc didMoveToParentViewController:self];
-									targetViewController = vc;
+									[_sideViewController removeFromParentViewController];
+									[svc didMoveToParentViewController:self];
+									_sideViewController = svc;
+								}
+		 ];
+	}
+}
+
+- (void)setContentViewController:(UIViewController *)cvc {
+	if (_contentViewController == nil) {
+		cvc.view.frame = _contentView.bounds;
+		_contentViewController = cvc;
+		[self addChildViewController:_contentViewController];
+		[_contentView addSubview:_contentViewController.view];
+		[_contentViewController didMoveToParentViewController:self];
+	} else if (_contentViewController != cvc) {
+		cvc.view.frame = _contentView.bounds;
+		[_contentViewController willMoveToParentViewController:nil];
+		[self addChildViewController:cvc];
+		self.view.userInteractionEnabled = NO;
+		[self transitionFromViewController:_contentViewController
+						  toViewController:cvc
+								  duration:0
+								   options:UIViewAnimationOptionTransitionNone
+								animations:^{}
+								completion:^(BOOL finished){
+									self.view.userInteractionEnabled = YES;
+									[_contentViewController removeFromParentViewController];
+									[cvc didMoveToParentViewController:self];
+									_contentViewController = cvc;
 								}
 		 ];
 	}
@@ -186,6 +187,16 @@ typedef enum {
 		animations();
 		completionBlock(YES);
 	}
+}
+
+#pragma mark Pan Gesture Delegates
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+	if (_viewForPanGesture && touch.view != _viewForPanGesture)
+	{
+		return NO;
+	}
+	return YES;
 }
 
 #pragma mark Public Methods

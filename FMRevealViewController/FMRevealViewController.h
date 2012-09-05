@@ -15,7 +15,7 @@ typedef enum {
 
 @protocol FMRevealViewControllerDelegate;
 
-@interface FMRevealViewController : UIViewController {
+@interface FMRevealViewController : UIViewController <UIGestureRecognizerDelegate> {
 @private
 	UIView *_sideView;
 	UIView *_contentView;
@@ -26,6 +26,7 @@ typedef enum {
 @property (nonatomic, assign) RevealSideView revealSide;
 @property (strong, nonatomic) UIViewController *sideViewController;
 @property (strong, nonatomic) UIViewController *contentViewController;
+@property (strong, nonatomic) UIView *viewForPanGesture;
 
 - (void)toggleSideView:(BOOL)animated;
 - (void)openSideView:(BOOL)animated;
