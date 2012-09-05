@@ -146,7 +146,7 @@ typedef enum {
 			xMax = 0.0f;
 		}
 		
-		CGFloat xDelta = (xOrigin > xMin && xOrigin < xMax)
+		CGFloat xDelta = (xOrigin >= xMin && xOrigin <= xMax)
 		? xOffset + translation
 		: ((xOrigin > xMax) ? xMax : xMin);
 		
