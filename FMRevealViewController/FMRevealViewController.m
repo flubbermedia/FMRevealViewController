@@ -11,9 +11,11 @@
 
 #pragma mark -
 #pragma mark Constants
-const NSTimeInterval kGHRevealSidebarDefaultAnimationDuration = 0.3f;
-const CGFloat kGHRevealSidebarWidth = 272.0f;
-const CGFloat kGHRevealSidebarFlickVelocity = 500.0f;
+const UIViewAnimationOptions kFMRevealViewUpdateTransitionType = UIViewAnimationOptionTransitionCrossDissolve;
+const NSTimeInterval kFMRevealViewUpdateTransitionDuration = 0.1f;
+const NSTimeInterval kFMRevealViewDefaultAnimationDuration = 0.3f;
+const CGFloat kFMRevealViewOpenedWidth = 272.0f;
+const CGFloat kFMRevealViewFlickVelocity = 500.0f;
 
 typedef enum {
 	ViewControllerTypeContent = 0,
@@ -77,8 +79,8 @@ typedef enum {
 		self.view.userInteractionEnabled = NO;
 		[self transitionFromViewController:_sideViewController
 						  toViewController:svc
-								  duration:0
-								   options:UIViewAnimationOptionTransitionNone
+								  duration:kFMRevealViewUpdateTransitionDuration
+								   options:kFMRevealViewUpdateTransitionType
 								animations:^{}
 								completion:^(BOOL finished){
 									self.view.userInteractionEnabled = YES;
@@ -104,8 +106,8 @@ typedef enum {
 		self.view.userInteractionEnabled = NO;
 		[self transitionFromViewController:_contentViewController
 						  toViewController:cvc
-								  duration:0
-								   options:UIViewAnimationOptionTransitionNone
+								  duration:kFMRevealViewUpdateTransitionDuration
+								   options:kFMRevealViewUpdateTransitionType
 								animations:^{}
 								completion:^(BOOL finished){
 									self.view.userInteractionEnabled = YES;
@@ -127,7 +129,7 @@ typedef enum {
 {
 	CGFloat translation = [panGesture translationInView:self.view].x;
 	CGFloat velocity = [panGesture velocityInView:self.view].x;
-	CGFloat xOffset = (_sideViewShowing) ? _revealSide * kGHRevealSidebarWidth : 0.0f;
+	CGFloat xOffset = (_sideViewShowing) ? _revealSide * kFMRevealViewOpenedWidth : 0.0f;
 	CGFloat xReference = (_revealSide == RevealSideViewLeft) ? CGRectGetMinX(_contentView.bounds) : CGRectGetMinX(_contentView.bounds);
 	CGFloat xOrigin = xReference + xOffset + translation;
 	
@@ -155,9 +157,9 @@ typedef enum {
 	}
 	else if (panGesture.state == UIGestureRecognizerStateEnded)
 	{
-		BOOL show = (fabs(velocity) > kGHRevealSidebarFlickVelocity)
+		BOOL show = (fabs(velocity) > kFMRevealViewFlickVelocity)
 		? _revealSide * velocity > 0.0f
-		: _revealSide * xOrigin > (kGHRevealSidebarWidth / 2);
+		: _revealSide * xOrigin > (kFMRevealViewOpenedWidth / 2);
 		
 		[self toggleSideView:show animated:YES completion:^(BOOL finshed){}];
 	}
@@ -166,7 +168,7 @@ typedef enum {
 - (void)toggleSideView:(BOOL)show animated:(BOOL)animated completion:(void (^)(BOOL finsihed))completion {
 	void (^animations)(void) = ^{
 		if (show) {
-			_contentView.frame = CGRectOffset(_contentView.bounds, _revealSide * kGHRevealSidebarWidth, 0.0f);
+			_contentView.frame = CGRectOffset(_contentView.bounds, _revealSide * kFMRevealViewOpenedWidth, 0.0f);
 		} else {
 			_contentView.frame = _contentView.bounds;
 		}
@@ -178,7 +180,7 @@ typedef enum {
 	};
 	UIViewAnimationOptions animationOption = (show) ? UIViewAnimationOptionCurveEaseOut : UIViewAnimationOptionCurveEaseInOut;
 	if (animated) {
-		[UIView animateWithDuration:kGHRevealSidebarDefaultAnimationDuration
+		[UIView animateWithDuration:kFMRevealViewDefaultAnimationDuration
 							  delay:0
 							options:animationOption
 						 animations:animations
