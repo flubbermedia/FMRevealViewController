@@ -26,7 +26,6 @@ typedef enum {
 @property (nonatomic, assign) RevealSideView revealSide;
 @property (strong, nonatomic) UIViewController *sideViewController;
 @property (strong, nonatomic) UIViewController *contentViewController;
-@property (strong, nonatomic) UIView *viewForPanGesture;
 
 - (void)toggleSideView:(BOOL)animated;
 - (void)openSideView:(BOOL)animated;
@@ -42,5 +41,7 @@ typedef enum {
 - (void)revealViewControllerDidOpen:(FMRevealViewController*)revealViewController;
 - (void)revealViewControllerWillClose:(FMRevealViewController*)revealViewController;
 - (void)revealViewControllerDidClose:(FMRevealViewController*)revealViewController;
+
+- (BOOL)revealViewControllerShouldReceiveTouch:(UITouch *)touch;
 
 @end

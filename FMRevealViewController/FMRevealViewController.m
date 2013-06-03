@@ -194,11 +194,12 @@ typedef enum {
 #pragma mark Pan Gesture Delegates
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-	if (_viewForPanGesture && touch.view != _viewForPanGesture)
+	if ([_delegate respondsToSelector:@selector(revealViewControllerShouldReceiveTouch:)])
 	{
-		return NO;
+		return [_delegate revealViewControllerShouldReceiveTouch:touch];
 	}
-	return YES;
+	
+	return NO;
 }
 
 #pragma mark Public Methods
