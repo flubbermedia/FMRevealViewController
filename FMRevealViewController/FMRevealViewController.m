@@ -124,6 +124,13 @@ typedef enum {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+#pragma mark Cover Methods
+- (void)setLoadingCover:(UIView *)loadingCover {
+	[_loadingCover removeFromSuperview];
+	_loadingCover = loadingCover;
+	[self.view addSubview:_loadingCover];
+}
+
 #pragma mark Private Methods
 - (void)dragContentView:(UIPanGestureRecognizer *)panGesture
 {

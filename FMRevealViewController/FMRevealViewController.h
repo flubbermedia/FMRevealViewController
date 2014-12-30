@@ -26,6 +26,7 @@ typedef enum {
 @property (nonatomic, assign) RevealSideView revealSide;
 @property (strong, nonatomic) UIViewController *sideViewController;
 @property (strong, nonatomic) UIViewController *contentViewController;
+@property (strong, nonatomic) UIView *loadingCover;
 
 - (void)toggleSideView:(BOOL)animated;
 - (void)openSideView:(BOOL)animated;
